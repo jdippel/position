@@ -1,0 +1,2 @@
+# position
+static chess position
