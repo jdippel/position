@@ -24,7 +24,7 @@ package chess383.position;
  * Provides the information whether a location is passed by a pawn en passant.
  *
  * @author    Jörg Dippel
- * @version   November 2019
+ * @version   November 2020
  *
  */
 public class EnPassantLocation {
@@ -49,8 +49,16 @@ public class EnPassantLocation {
     public static EnPassantLocation create( String location ) {
         return new EnPassantLocation( location );
     }
+    
+    public static EnPassantLocation createEmptyPlaceholder( ) {
+        return new EnPassantLocation( null );
+    }
         
     /** ------------------------------------------------------- */
+    
+    public boolean isEmptyPlaceholder() {
+        return getLocation() == null;
+    }
     
     /** ---------  Inheritance from Object  ------------------- */
     

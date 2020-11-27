@@ -40,7 +40,7 @@ import chess383.player.Player;
  * Provides a chess position.
  *
  * @author    Jörg Dippel
- * @version   September 2020
+ * @version   November 2020
  *
  */
 public class Position {
@@ -86,6 +86,13 @@ public class Position {
         
         Position position = new Position();
         position.initialize( first, second, activePlayer, enPasssantLocation, numberOfPlys, numberOfMoves );
+        return position;
+    }
+    
+    public static Position createEmptyPlaceholder( ) {
+        
+        Position position = new Position();
+        position.initialize( null, null, ColorEnum.NONE, null, 0, 0 );
         return position;
     }
     
@@ -173,6 +180,11 @@ public class Position {
         return position;
     }
 
+    public boolean isEmptyPlaceholder() {
+    
+        return getFirst() == null || getSecond() == null;
+    }
+
     /** ---------  Delegated methods  ------------------------- */
     
     private void setActivePlayer( ) {
@@ -201,13 +213,16 @@ public class Position {
         setFirst( first );
         setSecond( second );
         
-        if ( activePlayer == first.getPlayer().getColour() ) {
-            setActivePlayer( ActivePlayer.create( activePlayer, second.getPlayer().getColour() ) );
+        if( activePlayer != ColorEnum.NONE || first != null || second != null ) {
+            if ( activePlayer == first.getPlayer().getColour() ) {
+                setActivePlayer( ActivePlayer.create( activePlayer, second.getPlayer().getColour() ) );
+            }
+            else {
+                setActivePlayer( ActivePlayer.create( activePlayer, first.getPlayer().getColour() ) );
+                // invalid input for activePlayer is not handled
+            }
         }
-        else {
-            setActivePlayer( ActivePlayer.create( activePlayer, first.getPlayer().getColour() ) );
-            // invalid input for activePlayer is not handled
-        }
+        else setActivePlayer( ActivePlayer.createEmptyPlaceholder() );
         
         setEnPassantLocation( EnPassantLocation.create( enPasssantLocation ) );
         setNumberOfPlys( numberOfPlys );

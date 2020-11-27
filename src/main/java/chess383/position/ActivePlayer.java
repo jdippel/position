@@ -26,7 +26,7 @@ import chess383.ColorEnum;
  * Provides the information which player has to move.
  *
  * @author    Jörg Dippel
- * @version   September 2020
+ * @version   November 2020
  *
  */
 public class ActivePlayer {
@@ -57,7 +57,17 @@ public class ActivePlayer {
         return new ActivePlayer( active, inactive );
     }
     
+    public static ActivePlayer createEmptyPlaceholder( ) {
+
+        return new ActivePlayer( ColorEnum.NONE, ColorEnum.NONE );
+    }
+    
     /** ------------------------------------------------------- */
+    
+    public boolean isEmptyPlaceholder() {
+        
+        return getActive() == ColorEnum.NONE || getInactive() == ColorEnum.NONE;
+    }
     
     public void toggleActivity() {
     	
