@@ -5,7 +5,7 @@ This README documents a library for static chess positions.
 ### What is this repository for? ###
 
 * a library for static chess positions.
-* Version 1.2.0
+* Version 1.4.0
 
 ### How do I get set up? ###
 
