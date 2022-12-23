@@ -21,12 +21,16 @@
 package chess383.position;
 
 import chess383.ColorEnum;
+import chess383.piece.concretion.pawn.BlackPawn;
+import chess383.piece.concretion.pawn.WhitePawn;
+
+import static chess383.piece.concretion.pawn.BlackPawn.getStaticForsythEdwardsNotation;
 
 /**
  * Provides the information which player has to move.
  *
  * @author    Jörg Dippel
- * @version   November 2020
+ * @version   November 2022
  *
  */
 public class ActivePlayer {
@@ -61,9 +65,14 @@ public class ActivePlayer {
 
         return new ActivePlayer( ColorEnum.NONE, ColorEnum.NONE );
     }
-    
+
     /** ------------------------------------------------------- */
-    
+
+    public Character getActivePawnForForsythEdwardsNotation() {
+
+        return ( getActive() == ColorEnum.WHITE ) ? WhitePawn.getStaticForsythEdwardsNotation() : BlackPawn.getStaticForsythEdwardsNotation();
+    }
+
     public boolean isEmptyPlaceholder() {
         
         return getActive() == ColorEnum.NONE || getInactive() == ColorEnum.NONE;

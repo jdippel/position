@@ -21,9 +21,19 @@ package chess383.position;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
+import chess383.ColorEnum;
+import chess383.piece.concretion.bishop.Bishop;
+import chess383.piece.concretion.king.InitialKing;
+import chess383.piece.concretion.knight.Knight;
+import chess383.piece.concretion.pawn.InitialWhitePawn;
+import chess383.piece.concretion.queen.Queen;
+import chess383.piece.concretion.rook.Rook;
+import chess383.player.Player;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -36,13 +46,13 @@ import chess383.ICoordinateFactory;
  * </p>
  *
  * @author    Jörg Dippel
- * @version   September 2020
+ * @version   November 2022
  *
  */
 @DisplayName("the public static method Position create( ) for class Position is tested for given FEN notations")
 public class Position_Create {
     
-    @ParameterizedTest( name = "given a FEN (Forsyth-Edwards notation) \"{0}\" the a position should be returned." )
+    @ParameterizedTest( name = "given a FEN (Forsyth-Edwards notation) \"{0}\" then a position should be returned." )
     @MethodSource("FENProvider")
     public void testWithArgMethodSource_ReturnPosition( String fen) {
         
@@ -67,5 +77,16 @@ public class Position_Create {
             
         ); }
 
+
+    @Test
+    @DisplayName("create(): creates initial position without passing parameters")
+    public void create_CreateInitialPosition() {
+
+        Position position = Position.create();
+
+        assertThat( position.toString() )
+                .as( "an initial position is created" )
+                .isEqualTo( "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" );
+    }
 }
 

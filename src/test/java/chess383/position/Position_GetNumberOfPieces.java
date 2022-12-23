@@ -36,13 +36,13 @@ import chess383.ICoordinateFactory;
  * </p>
  *
  * @author    Jörg Dippel
- * @version   July 2020
+ * @version   November 2022
  *
  */
 @DisplayName("the public method int getNumberOfPieces( ) for class Position is tested for given FEN notations")
 public class Position_GetNumberOfPieces {
     
-    @ParameterizedTest( name = "given a FEN (Forsyth-Edwards notation) \"{0}\" the a position should be returned." )
+    @ParameterizedTest( name = "given a FEN (Forsyth-Edwards notation) \"{0}\" then a position should be returned." )
     @MethodSource("CounterAndFENProvider")
     public void testWithArgMethodSource_ReturnPosition( int numberOfPieces, String fen) {
         

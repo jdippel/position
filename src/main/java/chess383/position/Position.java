@@ -20,10 +20,7 @@
 
 package chess383.position;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import chess383.ColorEnum;
 import chess383.ICoordinate;
@@ -40,7 +37,7 @@ import chess383.player.Player;
  * Provides a chess position.
  *
  * @author    Jörg Dippel
- * @version   November 2020
+ * @version   November 2022
  *
  */
 public class Position {
@@ -242,6 +239,11 @@ public class Position {
         
         return getFirst().getPlayer().getNumberOfPieces() + getSecond().getPlayer().getNumberOfPieces();
     }
+
+    public Character getPawnLetterForForsythEdwardsNotation() {
+
+        return getActivePlayer().getActivePawnForForsythEdwardsNotation();
+    }
     
     /** ------------------------------------------------------- */
     
@@ -276,25 +278,19 @@ public class Position {
                 return playerPieces;
             }
         }       
-        return new ArrayList<Piece>( 0 );
+        return Collections.emptyList();
     }
 
     private List<String> getPiecePlacementPerLine( String location, String helperLocation ) {
     
         Set<List<String>> bundle = board.getLineBundles( location, Direction.createBidirectionalDirection(), AdjacencyEnum.BY_EDGE );
-        
-        if ( bundle.size() == 1 )  {
-            Iterator<List<String>> iterator = bundle.iterator();
-            return iterator.next();
-        }
-        else {
-            for ( List<String> line : bundle ) {
-                if ( line.contains( helperLocation ) ) {
-                    return line;
-                }
+
+        for ( List<String> line : bundle ) {
+            if ( line.contains( helperLocation ) ) {
+                return line;
             }
         }
-        return new ArrayList<String>( 0 );
+        return Collections.emptyList();
     }
     
     private String getPiecePlacementString( List<String> line) {

@@ -44,7 +44,7 @@ import chess383.player.Player;
  * </p>
  *
  * @author    Jörg Dippel
- * @version   June 2020
+ * @version   November 2022
  *
  */
 @DisplayName("the public method String getRookForKingMovement( ) for class Correlation is tested")
@@ -129,6 +129,23 @@ public class Correlation_GetRookForKingMovement {
         
         assertThat( ROOK_ORIGIN ).as( "the related rook should be found for castling" )
                   .isEqualTo( correlation.getRookForKingMovement( KING_ORIGIN, KING_TARGET ) );
+    }
+
+    @Test
+    @DisplayName("searching rook square for not allowed castling")
+    public void getRookForKingMovement_NoCastling() {
+
+        final String KING_ORIGIN = "e8";
+        final String KING_TARGET = "e6";
+        final String ROOK_ORIGIN = "d5";    // rook is not located on the line with the king movement
+
+        Player player = Player.create( ColorEnum.BLACK, Arrays.asList(
+                InitialKing.create( KING_ORIGIN ), Rook.create( "a8" ), Rook.create( ROOK_ORIGIN ) ));
+        Castling castling = Castling.createEmpty();
+        Correlation correlation = Correlation.create( player, castling ).validate();
+
+        assertThat( "" ).as( "the related rook should not be found for castling" )
+                .isEqualTo( correlation.getRookForKingMovement( KING_ORIGIN, KING_TARGET ) );
     }
 }
 
